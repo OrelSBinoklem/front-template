@@ -1,2 +1,9 @@
 /node_modules/*
+/bower_components/*
 /.idea/*
+/build/*
+/tmp/*
+/design/session.json
+development.bat
+production.bat
+Что делать для пуша.txt
