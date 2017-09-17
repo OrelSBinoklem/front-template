@@ -8,11 +8,11 @@ var webpackMediator = function(env) {
     this.env = env;
 };
 
-webpackMediator.prototype.config = function (config, bower) {
+webpackMediator.prototype.config = function (config, bowerData) {
     var res = {
         general: {
             base_src: config.src,              // (String: "путь"       Def:"."). Базовый путь к папке с исходниками
-            base_tmp: 'tmp',              // (String: "путь"       Def:"."). Базовый путь к папке с временными файлами
+            base_tmp: config.tmp,              // (String: "путь"       Def:"."). Базовый путь к папке с временными файлами
             base_dest: config.dest,          // (String: "путь"       Def:"."). Базовый путь к папке с конечным результатом
 
             //Установите сохранение каждую 1 сек, если пользуетесь редактором phpshtorm (File | Settings | Appearance and Behavior | System Settings | Save files automatically if application is idle for 1 sec)
@@ -20,7 +20,7 @@ webpackMediator.prototype.config = function (config, bower) {
         },
 
         common_modules: {
-            clean: this.env == "production",                  //• (boolean: true|false, Def:false). Уничтожает папки "base_tmp", "base_dest" перед запуском основных задач
+            clean: false, //НАДО ВЫПОЛНЯТЬ ДО БОВЕРА ПОЭТОМУ СДЕСЬ БЛОКИРУЕМ ЭТУ ЗАДАЧУ. ЭТУ ЗАДАЧУ ПРОПИСАЛ В ГЛАВНОМ МОДУЛЕ ПАКЕРА
 
             browserSync: this.env == "development",             //• (boolean: true|false, Def:false). Обновляет на лету вёрстку в браузере если изменились файлы. Синхронизирует действия в нескольких браузерах, что позволяет тестировать вёрстку одновременно в нескольких браузерах. Позволяет тестировать вёрстку на мобильных через WIFI
             browserSyncOptions: {},       //  (object: for browser-sync plugin, Def:notdocumented). По умолчанию задаються разные опции при разных настройках
@@ -60,7 +60,7 @@ webpackMediator.prototype.config = function (config, bower) {
                     pretty: '  ',          //  (String:              Def: "\t"). Какими отступами должны делаться вложенные теги при компиляции в html. По умолчанию: табуляция
                     data: {
                         config: config,
-                        bower: bower
+                        bower: bowerData
                     }
                 },
                 pugInsertCurPage: true,   //@ (boolean: true|false, Def:true). В этом режиме в каждый pug файл передаёться переменная с именем "current" в которой находиться имя исполняемого (тот в котором extend и всё инклюдиться) pug файла
@@ -94,9 +94,9 @@ webpackMediator.prototype.config = function (config, bower) {
             //Отображать svg иконки в проводнике windows - http://savvateev.org/blog/54/
             images: {
                 //changed: true,          // &(boolean: true|false,                 Def:true). Обрабатывать только те картинки которые изменились
-                quality: "simple",        //• (String: "perfect" | "good" | "simple" | "low", Def: "simple").
+                quality: "normal",        //• (String: "perfect" | "good" | "normal" | "simple" | "low", Def: "simple").
                 qualityFolders: true,     //• (boolean: true|false,                 Def:true). Если картинки лежат в корне папки с именем качества ("perfect" | "good" | "simple" | "low") то такие картинки жмуться с качеством соответствующим имени. Потом переносяться в папку на уровень вверх (в папку в которой лежит папка с названием качества т.е. родительская папка).
-                webp: true,               //• (boolean: true|false,                 Def:false). Все картинки дополнительно жмуться в формат webp и вставляються в ту же папку с такими же именами. Вставьте в ваш .htaccess файл код с этой статьи: https://github.com/vincentorback/WebP-images-with-htaccess. Для потдержки webp
+                webp: config.webp,               //• (boolean: true|false,                 Def:false). Все картинки дополнительно жмуться в формат webp и вставляються в ту же папку с такими же именами. Вставьте в ваш .htaccess файл код с этой статьи: https://github.com/vincentorback/WebP-images-with-htaccess. Для потдержки webp
                 sprite: false,            //•↓(boolean: true|false,                 Def:false). Просто жмём картинки или создаём спрайт.
                 spriteOptions: {
                     styleFormat: 'sass',             //  (String: "расширение файла"           Def: "sass"). Для препроцессора стилей в котором будут данные о спрайте
@@ -105,13 +105,13 @@ webpackMediator.prototype.config = function (config, bower) {
                     destExamples: 'sprite-examples', //  (Boolean: false | String: "путь"      Def: "sprite-examples"). Папка в которую поместить полезные миксины и примеры вывода стилей и html для отдельных иконок из спрайтов. (относительно "base_tmp")
                     png: {
                         prefixIcon: "icon-",         //  (String: "имя файла"                  Def: "icon__"). Префикс к именам иконок спрайта - используеться в формировании классов стилей иконок
-                        postfix2x: "@2x",            //• (Boolean: false | String: "имя файла" Def: false). Конец имени файлов с двойным разрешением для создания спрайта для ретины или 4k. "-2x" с такой строкой возникают баги!!!
+                        postfix2x: config.spritePngPostfix2x,            //• (Boolean: false | String: "имя файла" Def: false). Конец имени файлов с двойным разрешением для создания спрайта для ретины или 4k. "-2x" с такой строкой возникают баги!!!
                         name: 'sprite',              // ↓(String: "имя файла"                  Def: "sprite"). Картинка спрайта
                         styleName: '_png-sprite'     // ↓(String: "имя файла"                  Def: "_png-sprite"). Стили с данными об иконках спрайта
                     },
                     svg: {
                         prefixIcon: "icon-",         //  (String: "имя файла"                  Def: "svg-icon__"). Префикс к именам иконок спрайта - используеться в формировании классов стилей иконок и идентификаторов в тегах symbol в svg
-                        clearColor: false,           //• (boolean: true|false,                 Def:false). Удаление атрибутов цвета чтобы можно было цвет svg иконки задавать через свойство color в стилях
+                        clearColor: config.spriteSvgClearColor,           //• (boolean: true|false,                 Def:false). Удаление атрибутов цвета чтобы можно было цвет svg иконки задавать через свойство color в стилях
                         name: 'sprite',              // ↓(String: "имя файла"                  Def: "sprite"). Картинка спрайта
                         styleName: '_svg-sprite'     // ↓(String: "имя файла"                  Def: "_png-sprite"). Стили с данными об иконках спрайта
                     }
@@ -126,26 +126,43 @@ webpackMediator.prototype.config = function (config, bower) {
             ]
         ],
 
-        css: [
+        css: (function(arr) {
+            if(config.framework == "bootstrap") {
+                arr.push({name: 'css:bootstrap', src: path.join("../", config.dest, config.bowerDest, "bootstrap/dist/css/bootstrap.min.css"), dest: path.join("../", config.tmp, "garbage"),
+                    minification: false, sourcemaps: false});
+            }
+            return arr;
+        })([
             [
                 {name: 'sass2', src: ['sass/**/case-dostaevsky.sass', 'sass/**/case-help-to-mama.sass'], addWatch: "sass/**/{constant,footer,header,mixing}.sass", dest: 'css'},
-                {name: 'sass', src: ['sass/*.sass'], addWatch: ["sass/*/**/*.sass", "../tmp/sass/png-sprite.sass"], dest: 'css'}
+                {name: 'sass', src: ['sass/*.sass'], addWatch: (function(arr) {
+                    if(config.framework == "bootstrap") {
+                        arr.push("../config/bootstrap-variables.scss");
+                    }
+                    return arr;
+                })(["sass/*/**/*.sass", "../tmp/sass/png-sprite.sass"]), dest: 'css'}
             ],
             {name: 'css', src: ['/**/*.css']}
-        ],
+        ]),
 
-        js: [
+        js: (function(arr) {
+            if(config.framework == "bootstrap") {
+                arr.push({name: 'js:bootstrap', src: path.join("../", config.dest, config.bowerDest, "bootstrap/dist/js/bootstrap.min.js"), dest: path.join("../", config.tmp, "garbage"),
+                    minification: false, sourcemaps: false});
+            }
+            return arr;
+        })([
             {name: 'coffee', src: 'coffee/*.coffee', addWatch: "coffee/**/*.coffee", dest: 'js'},
             {name: 'js', src: '/**/*.js'}
-        ],
+        ]),
 
         images: [
             [
-                {name: 'images-sprites', src: ['img/icons/**/*.{png,svg}'], quality: "good", qualityFolders:false, dest: 'img', sprite: true,
+                {name: 'images-sprites', src: ['img/icons/**/*.{png,svg}'], quality: "good", qualityFolders: false, dest: 'img', sprite: true,
                     spriteOptions:{
                         png: {name: 'sprite', styleName: '_png-sprite'},
                         svg: {name: 'sprite', styleName: '_svg-sprite'}}},
-                {name: 'images-pics', src: ['img/pics/*.{jpg,jpeg,png,gif,svg}'], quality: "simple"},
+                {name: 'images-pics', src: ['img/pics/**/*.{jpg,jpeg,png,gif,svg}'], quality: config.imgCompressPics},
                 {name: 'images-casual', src: ['/**/*.{jpg,jpeg,png,gif,svg}'], quality: config.imgCompressPolicy}
             ]
         ],

@@ -5,7 +5,6 @@ module.exports = function(env, packerConfig) {
         plugins: [
             "fancybox",
             "malihu-custom-scrollbar-plugin"
-        ],
-        plugins2: ["bootstrap3"]
+        ]
     };
 };

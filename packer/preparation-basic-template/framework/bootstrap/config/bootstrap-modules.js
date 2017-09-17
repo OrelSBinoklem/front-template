@@ -1,0 +1,11 @@
+//= util.js
+//= alert.js
+//= button.js
+//= carousel.js
+//= collapse.js
+//= dropdown.js
+//= modal.js
+//= scrollspy.js
+//= tab.js
+//= tooltip.js
+//= popover.js

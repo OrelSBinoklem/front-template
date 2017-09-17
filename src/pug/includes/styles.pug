@@ -1,8 +1,10 @@
-+pasteStyles([
-    ["main"], ["plugins"]
-])
+if config.resetCss
+  +pasteStyles([[/./gi], ["reset-css"]])
 
-+pasteStyles([
-    ["main"], ["foundation"]
-])
+if config.framework == "bootstrap"
+  +pasteStyles([[/./gi], ["bootstrap"]])
+
+if config.framework == "foundation"
+  +pasteStyles([[/./gi], ["foundation-sites"]])
+
 link(rel="stylesheet" href="css/main.css")

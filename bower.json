@@ -1,6 +1,6 @@
 {
   "name": "front-template",
-  "description": "super frontend template - gulp + webpack",
+  "description": "super frontend template",
   "main": "packer/index.js",
   "authors": [
     "orel-s-binoklem"
@@ -19,13 +19,10 @@
     "tests"
   ],
   "dependencies": {
-    "malihu-custom-scrollbar-plugin": "^3.1.5",
-    "jquery": "^3.2.1",
-    "jquery-migrate": "^3.0.0",
-    "fancybox": "^3.1.20",
-    "reset-css": "^2.2.1",
-    "normalize-css": "^7.0.0",
-    "bootstrap": "bootstrap4#^3.3.7",
-    "foundation": "^5.5.3"
+    "reset-css": "latest",
+    "jquery": "latest",
+    "jquery-migrate": "latest",
+    "foundation-sites": "^6.4.3",
+    "bootstrap": "v4.0.0-beta"
   }
 }

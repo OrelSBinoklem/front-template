@@ -1,4 +1,3 @@
-mixin svg(name)
-    - var svgName = "#svg-icon-" + name
-    svg.icon(class!=attributes.class style!=attributes.style)
-        use(xlink:href= svgName)
+mixin icon(name)
+  svg(class=name)
+    use(xlink:href="img/sprite.svg#icon-" + name)
