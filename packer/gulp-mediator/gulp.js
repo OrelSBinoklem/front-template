@@ -130,6 +130,9 @@ webpackMediator.prototype.config = function (config, bowerData) {
             if(config.framework == "bootstrap") {
                 arr.push({name: 'css:bootstrap', src: path.join("../", config.dest, config.bowerDest, "bootstrap/dist/css/bootstrap.min.css"), dest: path.join("../", config.tmp, "garbage"),
                     minification: false, sourcemaps: false});
+            } else if(config.framework == "foundation") {
+                arr.push({name: 'css:foundation', src: path.join("../", config.dest, config.bowerDest, "foundation-sites/dist/css/foundation.min.css"), dest: path.join("../", config.tmp, "garbage"),
+                    minification: false, sourcemaps: false});
             }
             return arr;
         })([
@@ -138,6 +141,8 @@ webpackMediator.prototype.config = function (config, bowerData) {
                 {name: 'sass', src: ['sass/*.sass'], addWatch: (function(arr) {
                     if(config.framework == "bootstrap") {
                         arr.push("../config/bootstrap-variables.scss");
+                    } else if(config.framework == "foundation") {
+                        arr.push("../config/foundation-variables.scss");
                     }
                     return arr;
                 })(["sass/*/**/*.sass", "../tmp/sass/png-sprite.sass"]), dest: 'css'}
@@ -148,6 +153,9 @@ webpackMediator.prototype.config = function (config, bowerData) {
         js: (function(arr) {
             if(config.framework == "bootstrap") {
                 arr.push({name: 'js:bootstrap', src: path.join("../", config.dest, config.bowerDest, "bootstrap/dist/js/bootstrap.min.js"), dest: path.join("../", config.tmp, "garbage"),
+                    minification: false, sourcemaps: false});
+            } else if(config.framework == "foundation") {
+                arr.push({name: 'js:foundation', src: path.join("../", config.dest, config.bowerDest, "foundation-sites/dist/js/foundation.min.js"), dest: path.join("../", config.tmp, "garbage"),
                     minification: false, sourcemaps: false});
             }
             return arr;

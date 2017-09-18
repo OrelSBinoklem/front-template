@@ -8,6 +8,12 @@ const copyFilesDest = [
     'config/bootstrap-modules.scss',
     'config/bootstrap-variables.scss',
     'config/bootstrap-variables-defaults.scss',
+
+    'config/foundation-modules.js',
+    'config/foundation-modules.scss',
+    'config/foundation-variables.scss',
+    'config/foundation-variables-defaults.scss',
+    'config/foundation-config.scss',
 ];
 
 module.exports = function(config) {
@@ -23,6 +29,9 @@ module.exports = function(config) {
         if(config.framework == "bootstrap") {
             copydir.sync(path.join(process.cwd(), "packer/preparation-basic-template/framework/bootstrap/config"), path.join(process.cwd(), "config"));
             copydir.sync(path.join(process.cwd(), "packer/preparation-basic-template/framework/bootstrap/sass-for-project"), path.join(process.cwd(), config.src, "sass/base"));
+        } else if(config.framework == "foundation") {
+            copydir.sync(path.join(process.cwd(), "packer/preparation-basic-template/framework/foundation/config"), path.join(process.cwd(), "config"));
+            copydir.sync(path.join(process.cwd(), "packer/preparation-basic-template/framework/foundation/sass-for-project"), path.join(process.cwd(), config.src, "sass/base"));
         }
     }
 };

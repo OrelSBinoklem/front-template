@@ -6,6 +6,7 @@ Tuned gulp for frontend
 
 | Release | Notes |
 | --- | --- |
+| 0.0.2 | Add foundation builder |
 | 0.0.1 | Add bootstrap builder |
 | 0.0.0 | Pre alpha release |
 

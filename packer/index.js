@@ -13,6 +13,7 @@ const del = require('del');
 
 var configurationsRelatedToBower = ["bower.json", "config/packer.js", "config/bower-overrides.js", "config/bower-concat.js"];
 var configurationsRelatedToBootstrapBuilder = ["bower.json", "config/packer.js", "config/bower-overrides.js", "config/bower-concat.js", "config/bootstrap-variables.scss", "config/bootstrap-modules.scss", "config/bootstrap-modules.js"];
+var configurationsRelatedToFoundationBuilder = ["bower.json", "config/packer.js", "config/bower-overrides.js", "config/bower-concat.js", "config/foundation-variables.scss", "config/foundation-config.scss", "config/foundation-modules.scss", "config/foundation-modules.js"];
 
 var packer = function(env, maincallback) {
     const config = require("../config/packer")(env);
@@ -23,6 +24,7 @@ var packer = function(env, maincallback) {
     const webpackMediator = require("./webpack-mediator/webpack")(env);
     const bowerMediator = require("./bower-mediator/bower")(env);
     const bootstrapBilder = require("./framework-builders/bootstrap-builder");
+    const foundationBilder = require("./framework-builders/foundation-builder");
 
     var taskDependencies = [];
 
@@ -119,8 +121,45 @@ var packer = function(env, maincallback) {
             ], ['bootstrap:builder:css']);
 
             gulp.watch([
-                'config/bootstrap-modules.js',
+                'config/foundation-modules.js',
             ], ['bootstrap:builder:js']);
+        }
+    }
+
+    //Optimize run "foundation builder"
+    //
+    if(config.framework == "foundation") {
+        var foundationBuilderRun = false;
+
+        if(!config.clean) {
+            if(!fs.existsSync(path.join(process.cwd(), "foundation-sites/dist/css/foundation.min.css")) || !fs.existsSync(path.join(process.cwd(), "foundation-sites/dist/js/foundation.min.js"))) {
+                foundationBuilderRun = true;
+            } else {
+                for(var i in configurationsRelatedToFoundationBuilder) {
+                    var foundationBuilderLastRun = fs.statSync(path.join(process.cwd(), config.dest, config.bowerDest, "foundation-sites/dist/css/foundation.min.css")).mtime.getTime();
+                    if(fs.statSync(path.join(process.cwd(), configurationsRelatedToFoundationBuilder[i])).mtime.getTime() > bowerLastRun) {
+                        foundationBuilderRun = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if(foundationBuilderRun || config.clean) {
+            foundationBilder.taskInit(config);
+            taskDependencies.push(['foundation:builder']);
+        }
+
+        if(config.watch) {
+            gulp.watch([
+                'config/foundation-modules.scss',
+                'config/foundation-variables.scss',
+                'config/foundation-config.scss',
+            ], ['foundation:builder:css']);
+
+            gulp.watch([
+                'config/foundation-modules.js',
+            ], ['foundation:builder:js']);
         }
     }
 
