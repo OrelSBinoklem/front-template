@@ -137,8 +137,7 @@ webpackMediator.prototype.config = function (config, bowerData) {
             return arr;
         })([
             [
-                {name: 'sass2', src: ['sass/**/case-dostaevsky.sass', 'sass/**/case-help-to-mama.sass'], addWatch: "sass/**/{constant,footer,header,mixing}.sass", dest: 'css'},
-                {name: 'sass', src: ['sass/*.sass'], addWatch: (function(arr) {
+                {name: 'sass', src: ['sass/*.sass', 'sass/layouts/*.sass'], addWatch: (function(arr) {
                     if(config.framework == "bootstrap") {
                         arr.push("../config/bootstrap-variables.scss");
                     } else if(config.framework == "foundation") {

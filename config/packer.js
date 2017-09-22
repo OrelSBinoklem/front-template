@@ -5,15 +5,15 @@ module.exports = function(env) {
         dest: 'build',                //(String: "путь" Def:"public")
 
         resetCss: true,
-        framework: undefined,         //(Boolean: false | String: "bootstrap" | "foundation" Notdef)
+        framework: "bootstrap",         //(Boolean: false | String: "bootstrap" | "foundation" Notdef)
 
-        imgCompressPolicy: undefined, //(String: "good" | "normal" | "simple" Notdef)
+        imgCompressPolicy: "normal", //(String: "good" | "normal" | "simple" Notdef)
         imgCompressPics: "normal",    //(String: "good" | "normal" | "simple" | "low" Def:"simple")
         webp: false,                  //(boolean: true|false, Def:false)
         spritePngPostfix2x: false,    //(Boolean: false | String: "имя файла" Def: false)
         spriteSvgClearColor: false,   //(boolean: true|false, Def:false)
 
-        pugOrganizationCodePolicy: undefined, //(String: "extends" | "includes" Notdef)
+        pugOrganizationCodePolicy: "extends", //(String: "extends" | "includes" Notdef)
 
         jQueryMigrate: true,          //(boolean: true|false, Def: true)
         autoprefixer: true,           //(boolean: true|false, Def: true)
