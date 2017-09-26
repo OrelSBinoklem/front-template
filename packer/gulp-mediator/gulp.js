@@ -169,7 +169,7 @@ webpackMediator.prototype.config = function (config, bowerData) {
                     spriteOptions:{
                         png: {name: 'sprite', styleName: '_png-sprite'},
                         svg: {name: 'sprite', styleName: '_svg-sprite'}}},
-                {name: 'images-pics', src: ['img/pics/**/*.{jpg,jpeg,png,gif,svg}'], quality: config.imgCompressPics},
+                {name: 'images-pics', src: ['img/pics/**/*.{jpg,jpeg,png,gif,svg}'], quality: config.imgCompressPics, dest: 'img/pics'},
                 {name: 'images-casual', src: ['/**/*.{jpg,jpeg,png,gif,svg}'], quality: config.imgCompressPolicy}
             ]
         ],

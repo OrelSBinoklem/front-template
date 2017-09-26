@@ -1,3 +1,3 @@
-jQuery(document).on('ready', function($) {
+jQuery(document).on('ready', function() {
     //...
 });
