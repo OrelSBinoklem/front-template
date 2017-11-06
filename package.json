@@ -1,6 +1,6 @@
 {
   "name": "front-template",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "super frontend template - gulp + webpack",
   "author": "orel-s-binoklem",
   "license": "MIT",
@@ -29,7 +29,7 @@
     "copy-dir": "^0.3.0",
     "css-loader": "^0.28.7",
     "del": "^3.0.0",
-    "easy-gulp-by-orel": "^0.2.10",
+    "easy-gulp-by-orel": "^0.2.13",
     "event-stream": "^3.3.4",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
