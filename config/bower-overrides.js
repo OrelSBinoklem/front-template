@@ -27,7 +27,8 @@ module.exports = function(env, packerConfig) {
         "font-awesome": {
             main: [
                 "css/font-awesome.min.css",
-                "fonts/*ontAwesome.*"
+                "fonts/FontAwesome.*",
+                "fonts/fontawesome-webfont.*"
             ]
         },
 
