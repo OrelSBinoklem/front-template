@@ -22,6 +22,71 @@ module.exports = function(env, packerConfig) {
                 "dist/js/foundation.min.js"
             ],
             ignore: !(packerConfig.framework == "foundation")
+        },
+
+        "font-awesome": {
+            main: [
+                "css/font-awesome.min.css",
+                "fonts/FontAwesome.*"
+            ]
+        },
+
+        "malihu-custom-scrollbar-plugin": {
+            "main": [
+                "./jquery.mCustomScrollbar.concat.min.js",
+                "./jquery.mCustomScrollbar.min.css",
+                "./mCSB_buttons.png"
+            ]
+        },
+
+        "slideout.js": {
+            "main": "dist/slideout.min.js"
+        },
+
+        "slick-carousel": {
+            "main": [
+                "slick/slick.min.js",
+                "slick/slick.css",
+                "slick/ajax-loader.gif",
+                "slick/fonts/slick.*"
+            ]
+        },
+
+        "multilevelpushmenu": {
+            "main": [
+                "jquery.multilevelpushmenu.css",
+                "jquery.multilevelpushmenu.min.js"
+            ]
+        },
+
+        "ResponsiveMultiLevelMenu": {
+            "main": [
+                "css/component.css",
+                "js/jquery.dlmenu.js",
+                "fonts/icomoon.*"
+            ]
+        },
+
+        "modernizr": {
+            "main": [
+                "modernizr.js"
+            ]
+        },
+
+        "isotope": {
+            "main": "dist/isotope.pkgd.min.js"
+        },
+
+        "svg4everybody": {
+            "main": "dist/svg4everybody.min.js"
+        },
+
+        "svg-injector": {
+            "main": "dist/svg-injector.min.js"
+        },
+
+        "jquery-mask-plugin": {
+            "main": "dist/jquery.mask.min.js"
         }
     };
 };
